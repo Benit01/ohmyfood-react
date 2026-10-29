@@ -1,0 +1,42 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.code {
+  font-family: var(--font-shrikhand);
+  font-size: 5rem;
+  line-height: 1;
+  background: linear-gradient(to bottom right, #FF79DA, #9356DC);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.notFound h1 {
+  font-size: 1.5rem;
+}
+
+.notFound p {
+  color: #666;
+}
+
+.homeLink {
+  margin-top: 1rem;
+  background: linear-gradient(to bottom right, #FF79DA, #9356DC);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.homeLink:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
