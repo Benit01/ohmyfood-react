@@ -2,48 +2,50 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './RestaurantCard.module.css';
 
 export default function RestaurantCard({ restaurant }) {
-  const { name, location, image, isNew } = restaurant;
+  const { name, location, image, isNew, slug } = restaurant;
   const [isLiked, setIsLiked] = useState(false);
 
   return (
     <article className={styles.card}>
-      <div className={styles.imageWrapper}>
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, 490px"
-          className={styles.image}
-        />
-        {isNew && <span className={styles.badge}>Nouveau</span>}
-      </div>
+      {/* Le lien entoure l'image et le texte ; le bouton like reste en dehors (pas de bouton dans un lien) */}
+      <Link href={`/restaurant/${slug}`} className={styles.link}>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={image}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 490px"
+            className={styles.image}
+          />
+          {isNew && <span className={styles.badge}>Nouveau</span>}
+        </div>
 
-      <div className={styles.content}>
-        <div className={styles.info}>
+        <div className={styles.content}>
           <h3 className={styles.name}>{name}</h3>
           <p className={styles.location}>{location}</p>
         </div>
+      </Link>
 
-        <button
-          className={`${styles.likeButton} ${isLiked ? styles.liked : ''}`}
-          onClick={() => setIsLiked(!isLiked)}
-          aria-label={isLiked ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-          aria-pressed={isLiked}
+      <button
+        className={`${styles.likeButton} ${isLiked ? styles.liked : ''}`}
+        onClick={() => setIsLiked(!isLiked)}
+        aria-label={isLiked ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+        aria-pressed={isLiked}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill={isLiked ? 'currentColor' : 'none'}
+          stroke="currentColor"
+          strokeWidth="2"
+          className={styles.heartIcon}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill={isLiked ? 'currentColor' : 'none'}
-            stroke="currentColor"
-            strokeWidth="2"
-            className={styles.heartIcon}
-          >
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-        </button>
-      </div>
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      </button>
     </article>
   );
 }
